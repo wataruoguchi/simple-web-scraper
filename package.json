@@ -1,0 +1,16 @@
+{
+  "name": "webScraper",
+  "version": "1.0.0",
+  "description": "",
+  "main": "server.js",
+  "scripts": {
+    "test": "test"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+  	"express" : "latest",
+  	"request" : "latest",
+  	"cheerio" : "latest"
+  }
+}
