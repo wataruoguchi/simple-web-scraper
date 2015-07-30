@@ -1,3 +1,4 @@
+/* global require, undefined, console, module */
 // File stream
 var fs = require("fs");
 // HTTP client makes http calls
@@ -7,15 +8,15 @@ var cheerio = require("cheerio");
 // MVC framework
 var express = require("express");
 var app = express();
-
 app.get("/scrape", function(req, res) {
-  url = "http://www.imdb.com/title/tt0076759/";
+  "use strict";
+  var url = "http://www.imdb.com/title/tt0076759/";
 
   request(url, function(error, response, html) {
     if (!error) {
       var $ = cheerio.load(html);
 
-      var title, replace, rating;
+      var title, release, rating;
       var json = {
         title: "",
         release: "",
@@ -38,12 +39,15 @@ app.get("/scrape", function(req, res) {
     }
 
     fs.writeFile("output.json", JSON.stringify(json, null, 4), function(err) {
-      console.log("File successfully written! - Check your project directory for the output.json file.");
+      if (err){
+        res.send(err);
+      }
+      res.send("File successfully written! - Check your project directory for the output.json file.");
     });
 
     res.send("Check your console!");
   });
-})
+});
 
 app.listen("8081");
 console.log("Magic happens on port 8081");
